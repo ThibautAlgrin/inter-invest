@@ -1,0 +1,65 @@
+{% extends "bootstrap_4_layout.html.twig" %}
+
+{%- block form_label -%}
+    {% if label is not same as(false) -%}
+        {% if not compound -%}
+            {% set label_attr = label_attr|merge({'for': id}) %}
+        {%- endif -%}
+        {% if required -%}
+            {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' required')|trim}) %}
+        {%- endif -%}
+        {% if label is empty -%}
+            {%- if label_format is not empty -%}
+                {% set label = label_format|replace({
+                    '%name%': name,
+                    '%id%': id,
+                }) %}
+            {%- else -%}
+                {% set label = name|humanize %}
+            {%- endif -%}
+        {%- endif -%}
+        <{{ element|default('label') }}{% if label_attr %}{% with { attr: label_attr } %}{{ block('attributes') }}{% endwith %}{% endif %}>
+        {%- if translation_domain is same as(false) -%}
+            {{- label -}}
+        {%- else -%}
+            {{- label|trans(label_translation_parameters, translation_domain) -}}
+        {%- endif -%}
+        {%- if required -%}<span class="pl-1">*</span>{%- endif -%}
+        </{{ element|default('label') }}>
+    {%- endif -%}
+{%- endblock form_label -%}
+
+{%- block _firm_address_widget -%}
+    <table id="address-fields-list" class="mb-15"
+           data-prototype="{{ form_widget(form.vars.prototype)|e }}"
+           data-widget-tags="{{ '' }}"
+           data-widget-counter="{{ form|length }}">
+        <tr>
+            <th>Numéro</th>
+            <th>Type de voie</th>
+            <th>Nom de la voie</th>
+            <th>Ville</th>
+            <th>Code Postal</th>
+            <th></th>
+        </tr>
+        {% for address in form %}
+            {{ form_widget(address) }}
+        {% endfor %}
+    </table>
+    <button type="button"
+            class="btn btn-primary add-another-collection-widget mt-3"
+            data-list-selector="#address-fields-list">Add another Address</button>
+{%- endblock -%}
+
+{%- block _firm_address_entry_widget -%}
+    <tr>
+        <td>{{ form_widget(form.number) }}</td>
+        <td>{{ form_widget(form.type) }}</td>
+        <td>{{ form_widget(form.name) }}</td>
+        <td>{{ form_widget(form.city) }}</td>
+        <td>{{ form_widget(form.zipCode) }}</td>
+        <td>
+            <button class="btn btn-danger remove-collection-widget">X</button>
+        </td>
+    </tr>
+{%- endblock -%}

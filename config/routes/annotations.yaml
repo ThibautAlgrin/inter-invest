@@ -5,3 +5,8 @@ controllers:
 kernel:
     resource: ../../src/Kernel.php
     type: annotation
+
+firm:
+    resource: ../../src/Controller/Firm
+    type: annotation
+    prefix: /firm
