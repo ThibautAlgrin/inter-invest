@@ -1,0 +1,14 @@
+{
+  "extends": "airbnb-base/legacy",
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaVersion": 6
+  },
+  "globals": {
+     "Promise":  true,
+     "document": true,
+     "console": true,
+     "$": true,
+     "Translator": true
+   }
+}

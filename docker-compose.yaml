@@ -1,0 +1,54 @@
+version: "3.7"
+
+services:
+  webserver:
+    image: nginx:stable
+    working_dir: /application
+    volumes:
+      - ${VOLUME}:/application${UNISON_STRATEGY}
+      - ./scripts/docker/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./scripts/docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./.data/logs/nginx:/var/log/nginx
+    ports:
+      - "8080:80"
+    networks:
+      - application
+    depends_on:
+      - php-fpm
+
+  php-fpm:
+    image: php73:latest
+    working_dir: /application
+    volumes:
+      - ${VOLUME}:/application${UNISON_STRATEGY}
+      - ./scripts/docker/php/php-ini-overrides.ini:/etc/php/7.3/fpm/conf.d/99-overrides.ini
+    environment:
+      - APP_ENV=dev
+    depends_on:
+      - database
+    networks:
+      - application
+      - database
+
+  database:
+    image: mariadb:10.4
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+    volumes:
+      - database:/var/lib/mysql
+      - ./exports:/home/exports
+    ports:
+      - "3307:3306"
+    networks:
+      - database
+
+networks:
+  application:
+    external: true
+  database:
+    external: true
+
+volumes:
+  database: ~
+  unison-sync-inter:
+    external: true

@@ -1,0 +1,18 @@
+{
+  "source": {
+    "directories": [
+      "src"
+    ]
+  },
+  "timeout": 10,
+  "logs": {
+    "text": "var/log/infection-log.txt",
+    "summary": "var/log/summary-log.txt",
+    "debug": "var/log/debug-log.txt"
+  },
+  "tmpDir": "/tmp",
+  "phpUnit": {
+    "configDir": ".",
+    "customPath": "vendor/bin/simple-phpunit"
+  }
+}

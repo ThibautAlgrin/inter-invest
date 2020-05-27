@@ -1,0 +1,20 @@
+# Mac only: unison-sync-inter is a volume synchronised by unison for performance
+# Ruby 2.x is required
+# gem install docker-sync
+# brew install unison
+
+version: "2"
+
+options:
+  compose-file-path: 'docker-compose.yaml'
+  verbose: true
+
+syncs:
+  unison-sync-inter:
+    src: './'
+    sync_strategy: 'native_osx'
+    sync_host_ip: '127.0.0.1'
+    notify_terminal: true
+    sync_userid: '1000'
+    sync_excludes: ['.git', '.gitignore', '.DS_Store', '.idea', 'docker-sync', 'docker-compose', 'docker-compose-dev', 'var/log', 'var/cache']
+    sync_excludes_type: 'Name'
