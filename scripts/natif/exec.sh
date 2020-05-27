@@ -127,7 +127,6 @@ fixtures() {
             $CONSOLE d:d:c --no-interaction --env=test &&\
             $CONSOLE d:s:u --force --env=test &&\
             $CONSOLE d:f:l --no-interaction --env=test &&\
-            $CONSOLE f:e:p --no-interaction --env=test &&\
             rm -rf var/log/* var/cache/*\
       "
 }
