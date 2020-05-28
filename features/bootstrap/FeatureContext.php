@@ -1,48 +1,72 @@
 <?php
 
 use Behat\Behat\Context\Context;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\KernelInterface;
+use Behat\Behat\Hook\Scope\BeforeScenarioScope;
+use Behat\Gherkin\Node\PyStringNode;
+use Behat\Mink\Element\NodeElement;
+use Behat\Mink\Exception\UnsupportedDriverActionException;
+use Behat\MinkExtension\Context\MinkContext;
+use Behat\Symfony2Extension\Driver\KernelDriver;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
 /**
- * This context class contains the definitions of the steps used by the demo
- * feature file. Learn how to get started with Behat and BDD on Behat's website.
- *
- * @see http://behat.org/en/latest/quick_start.html
+ * Defines application features from the specific context.
  */
 class FeatureContext implements Context
 {
     /**
-     * @var KernelInterface
+     * @var MinkContext
      */
-    private $kernel;
+    private $minkContext;
 
     /**
-     * @var Response|null
+     * @BeforeScenario
+     *
+     * @throws UnsupportedDriverActionException
      */
-    private $response;
-
-    public function __construct(KernelInterface $kernel)
+    public function login(BeforeScenarioScope $scope)
     {
-        $this->kernel = $kernel;
+        $this->minkContext = $scope->getEnvironment()->getContext(MinkContext::class);
     }
 
     /**
-     * @When a demo scenario sends a request to :path
+     * @Then I should see a pagination
      */
-    public function aDemoScenarioSendsARequestTo(string $path)
+    public function iShouldSeeAPagination()
     {
-        $this->response = $this->kernel->handle(Request::create($path, 'GET'));
-    }
-
-    /**
-     * @Then the response should be received
-     */
-    public function theResponseShouldBeReceived()
-    {
-        if ($this->response === null) {
-            throw new \RuntimeException('No response received');
+        $elem = $this->getElement('.pagination');
+        if (null === $elem) {
+            throw new \Exception('Pagination element not found');
         }
+    }
+
+    /**
+     * @When I :method a valid request to :uri the following data:
+     */
+    public function iPostToTheFollowingData(string $method, string $uri, PyStringNode $stringNode)
+    {
+        $client = $this->getClient();
+        $data = json_decode($stringNode->getRaw(), true);
+
+        $client->request(
+            $method,
+            $uri,
+            $data
+        );
+    }
+
+    private function getClient(): KernelBrowser
+    {
+        /** @var KernelDriver $driver */
+        $driver = $this->minkContext->getMink()->getSession()->getDriver();
+
+        return $driver->getClient();
+    }
+
+    private function getElement(string $selector): ?NodeElement
+    {
+        $container = $this->minkContext->getSession()->getPage();
+
+        return $container->find('css', $selector);
     }
 }

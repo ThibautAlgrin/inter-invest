@@ -2,15 +2,17 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}{% endblock %}</title>
         {% block stylesheets %}
             {{ encore_entry_link_tags('css/app') }}
         {% endblock %}
     </head>
     <body>
-        <div class="container">
+        {% include 'components/organismes/header.html.twig' %}
+        <div class="container mt-5 mb-5">
             {% block body %}{% endblock %}
         </div>
+        {% include 'components/organismes/footer.html.twig' %}
         {% block javascripts %}
             {{ encore_entry_script_tags('js/app') }}
         {% endblock %}

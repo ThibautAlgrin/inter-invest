@@ -1,0 +1,12 @@
+<td>{{ firm.name }}</td>
+<td>{{ firm.legalForm }}</td>
+<td>{{ firm.siren }}</td>
+<td>{{ firm.registerCity }}</td>
+<td>{{ firm.dateRegister ? firm.dateRegister|localizeddate('medium', 'none') : '' }}</td>
+<td>{{ firm.capital }}</td>
+<td>{{ firm.dateCreated ? firm.dateCreated|localizeddate : '' }}</td>
+<td>{{ firm.dateModified ? firm.dateModified|localizeddate : '' }}</td>
+<td>
+    <a href="{{ path('firm_show', {'slug': firm.slug}) }}">{{ 'action.show'|trans }}</a>
+    <a href="{{ path('firm_edit', {'slug': firm.slug}) }}">{{ 'action.edit'|trans }}</a>
+</td>

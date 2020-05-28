@@ -1,3 +1,7 @@
+###> app ###
+coverage
+reports
+###< app ###
 
 ###> symfony/framework-bundle ###
 /.env.local

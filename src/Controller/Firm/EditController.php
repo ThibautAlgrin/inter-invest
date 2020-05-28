@@ -68,14 +68,14 @@ class EditController
             return new RedirectResponse($this->router->generate('firm_index'));
         }
 
-        return new Response($this->twig->render('firm/new.html.twig', [
+        return new Response($this->twig->render('components/pages/firm/new.html.twig', [
             'firm' => $firm,
             'form' => $form->createView(),
         ]));
     }
 
     /**
-     * @Route("/{id}/edit", name="firm_edit", methods={"GET","POST"})
+     * @Route("/{slug}/edit", name="firm_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Firm $firm): Response
     {
@@ -88,7 +88,7 @@ class EditController
             return new RedirectResponse($this->router->generate('firm_index'));
         }
 
-        return new Response($this->twig->render('firm/edit.html.twig', [
+        return new Response($this->twig->render('components/pages/firm/edit.html.twig', [
             'firm' => $firm,
             'form' => $form->createView(),
         ]));

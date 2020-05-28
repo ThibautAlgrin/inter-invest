@@ -9,4 +9,4 @@ kernel:
 firm:
     resource: ../../src/Controller/Firm
     type: annotation
-    prefix: /firm
+    prefix: /firms

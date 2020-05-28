@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ firm.name~' - Inter-Invest' }}{% endblock %}
+
+{% block body %}
+    <h1>{{ 'firm.show'|trans({'%firm%': firm.name}) }}</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>{{ 'firm.show.version'|trans }}</th>
+                <td>{{ form(form) }}</td>
+            </tr>
+            <tr>
+                <th>{{ 'firm.show.legal-form'|trans }}</th>
+                <td>{{ firm.legalForm }}</td>
+            </tr>
+            <tr>
+                <th>{{ 'firm.show.name'|trans }}</th>
+                <td>{{ firm.name }}</td>
+            </tr>
+            <tr>
+                <th>{{ 'firm.show.siren'|trans }}</th>
+                <td>{{ firm.siren }}</td>
+            </tr>
+            <tr>
+                <th>{{ 'firm.show.registerCity'|trans }}</th>
+                <td>{{ firm.registerCity }}</td>
+            </tr>
+            <tr>
+                <th>{{ 'firm.show.dateRegister'|trans }}</th>
+                <td>{{ firm.dateRegister ? firm.dateRegister|localizeddate('medium', 'none') : '' }}</td>
+            </tr>
+            <tr>
+                <th>{{ 'firm.show.capital'|trans }}</th>
+                <td>{{ firm.capital }}</td>
+            </tr>
+            <tr>
+                <th>{{ 'firm.show.dateCreated'|trans }}</th>
+                <td>{{ firm.dateCreated ? firm.dateCreated|localizeddate : '' }}</td>
+            </tr>
+            <tr>
+                <th>{{ 'firm.show.dateModified'|trans }}</th>
+                <td>{{ firm.dateModified ? firm.dateModified|localizeddate : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <hr/>
+    <h5>{{ 'firm.show.address'|trans }}</h5>
+    <table class="table">
+        <tr>
+            <th>{{ 'address.show.number'|trans }}</th>
+            <th>{{ 'address.show.type'|trans }}</th>
+            <th>{{ 'address.show.name'|trans }}</th>
+            <th>{{ 'address.show.city'|trans }}</th>
+            <th>{{ 'address.show.zip-code'|trans }}</th>
+        </tr>
+        {% for item in firm.address %}
+            <tr>
+                <td>{{ item.number }}</td>
+                <td>{{ item.type }}</td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.city }}</td>
+                <td>{{ item.zipCode }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5" class="text-center">{{ 'no-result'|trans }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <a href="{{ path('firm_index') }}" class="btn btn-primary">{{ 'action.list'|trans }}</a>
+
+    <a href="{{ path('firm_edit', {'slug': firm.slug}) }}" class="btn btn-primary float-right">{{ 'action.edit'|trans }}</a>
+{% endblock %}

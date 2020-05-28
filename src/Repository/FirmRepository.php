@@ -19,32 +19,8 @@ class FirmRepository extends ServiceEntityRepository
         parent::__construct($registry, Firm::class);
     }
 
-    // /**
-    //  * @return Firm[] Returns an array of Firm objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function getQuery()
     {
-        return $this->createQueryBuilder('f')
-            ->andWhere('f.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('f.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        return $this->createQueryBuilder('f')->getQuery();
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Firm
-    {
-        return $this->createQueryBuilder('f')
-            ->andWhere('f.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

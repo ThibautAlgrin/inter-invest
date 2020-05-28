@@ -1,4 +1,8 @@
 framework:
+    disallow_search_engine_index: false
     test: true
     session:
         storage_id: session.storage.mock_file
+    form:
+        csrf_protection:
+            enabled: false

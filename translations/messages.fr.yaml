@@ -1,0 +1,51 @@
+address.show.number: Numéro
+address.show.type: Type de voie
+address.show.name: Nom de l'adresse
+address.show.city: Ville
+address.show.zip-code: Code postal
+
+firm.create: Créer une société
+firm.edit: Editer la société "%firm%"
+
+firm.form.address: Adresses
+firm.form.capital: Capital
+firm.form.legal-form: Status Juridique
+firm.form.legal-form.placeholder: Séléctionner un status juridique
+firm.form.name: Nom
+firm.form.dateCreated: Date de création
+firm.form.dateModified: Date de modification
+firm.form.dateRegister: Date d'inscription
+firm.form.registerCity: Ville d'inscription
+firm.form.siren: SIREN
+firm.form.version: Version
+
+firm.list: Liste des sociétés
+firm.list.actions: Actions
+firm.list.capital: Capital
+firm.list.legal-form: Status Juridique
+firm.list.name: Nom
+firm.list.dateCreated: Date de création
+firm.list.dateModified: Date de modification
+firm.list.dateRegister: Date d'inscription
+firm.list.registerCity: Ville d'inscription
+firm.list.siren: SIREN
+
+firm.show: Afficher la société "%firm%"
+firm.show.address: Adresses
+firm.show.capital: Capital
+firm.show.legal-form: Status Juridique
+firm.show.name: Nom
+firm.show.dateCreated: Date de création
+firm.show.dateModified: Date de modification
+firm.show.dateRegister: Date d'inscription
+firm.show.registerCity: Ville d'inscription
+firm.show.siren: SIREN
+firm.show.version: Version
+
+action.create: Créer
+action.edit: Editer
+action.save: Enregistrer
+action.show: Afficher
+action.list: Retour à la liste
+
+no-result: Aucun résultat

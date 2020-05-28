@@ -13,6 +13,8 @@ class Collection {
         $('.remove-collection-widget').click((e) => {
             e.preventDefault();
             $(e.currentTarget).parent().parent().remove();
+
+            return false;
         });
     }
 }
