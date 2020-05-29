@@ -67,7 +67,7 @@ class ShowController
     private function convertDateToString(\DateTime $date)
     {
         $formatter = \IntlDateFormatter::create(
-            null,
+            'fr_FR',
             \IntlDateFormatter::MEDIUM,
             \IntlDateFormatter::MEDIUM,
             \IntlTimeZone::createTimeZone($date->getTimezone()->getName())

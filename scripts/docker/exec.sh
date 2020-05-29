@@ -88,7 +88,7 @@ envs() {
     REAL_PATH=$(realpath .)
 
     if [ "$(uname -a | grep Darwin)" ]; then
-        sed -i "" 's/http:\/\/test.inter-invest.localhost\//http:\/\/test.inter-invest.localhost:8082\//g' behat.yml
+        sed -i "" 's/http:\/\/test.inter-invest.localhost\//http:\/\/test.inter-invest.localhost:8080\//g' behat.yml
 
         sed -i "" 's/DATABASE_URL=mysql:\/\/root:root@127.0.0.1:3306/DATABASE_URL=mysql:\/\/root:@database:3306/g' .env
 
@@ -96,7 +96,7 @@ envs() {
         sed -i "" 's/VOLUME_API_V2/unison-sync-inter/g' .docker
         sed -i "" 's/_UNISON_STRATEGY/:nocopy/g' .docker
     else
-        sed -i 's/http:\/\/test.inter-invest.localhost\//http:\/\/test.inter-invest.localhost:8082/g' behat.yml
+        sed -i 's/http:\/\/test.inter-invest.localhost\//http:\/\/test.inter-invest.localhost:8080/g' behat.yml
 
         sed -i 's/DATABASE_URL=mysql:\/\/root:root@127.0.0.1:3306/DATABASE_URL=mysql:\/\/root:@database:3306/g' .env
 
