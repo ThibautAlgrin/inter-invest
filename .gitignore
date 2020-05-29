@@ -3,6 +3,12 @@ coverage
 reports
 ###< app ###
 
+###> docker ###
+.docker
+.data
+.docker-sync
+###< docker ###
+
 ###> symfony/framework-bundle ###
 /.env.local
 /.env.local.php
