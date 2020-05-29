@@ -2,32 +2,11 @@ default:
     suites:
         default:
             contexts:
-                -  FeatureContext:
-                       em: '@doctrine.orm.entity_manager'
-                       tokenStorage: '@security.token_storage'
-                       session: '@session'
-                -  SystemContext:
-                       kernel: '@kernel'
-
+                -  FeatureContext: ~
                 - Behat\MinkExtension\Context\MinkContext: ~
-                - Alex\MailCatcher\Behat\MailCatcherContext: ~
-                - MOrtola\BehatSEOContexts\Context\MetaContext: ~
-                - MOrtola\BehatSEOContexts\Context\LocalizationContext: ~
-                - MOrtola\BehatSEOContexts\Context\RobotsContext: ~
-                - MOrtola\BehatSEOContexts\Context\IndexationContext: ~
-                - MOrtola\BehatSEOContexts\Context\RedirectContext: ~
-                - MOrtola\BehatSEOContexts\Context\SitemapContext: ~
-                - MOrtola\BehatSEOContexts\Context\HTMLContext: ~
-                - MOrtola\BehatSEOContexts\Context\PerformanceContext: ~
-                - MOrtola\BehatSEOContexts\Context\SocialContext: ~
 
 
     extensions:
-
-        Alex\MailCatcher\Behat\MailCatcherExtension\Extension:
-            url: http://localhost:1080
-            purge_before_scenario: true
-
         DVDoug\Behat\CodeCoverage\Extension:
             drivers:
                 - local
@@ -42,11 +21,9 @@ default:
                             - src/Repository/EventRepository.php
                         directories:
                             'vendor': ~
-                            'src/Command': ~
                             'src/DataFixtures': ~
                             'src/Entity': ~
                             'src/Migrations': ~
-                            'src/EventSubscriber/SiteMap': ~
             report:
                 format: html
                 options:

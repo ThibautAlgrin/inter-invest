@@ -1,0 +1,6 @@
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+    <hr />
+    <button class="btn btn-primary">{{ 'action.save'|trans }}</button>
+    <a href="{{ path('firm_index') }}" class="float-right btn btn-primary">{{ 'action.list'|trans }}</a>
+{{ form_end(form) }}

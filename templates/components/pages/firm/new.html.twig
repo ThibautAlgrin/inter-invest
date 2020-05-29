@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'firm.create'|trans }}{% endblock %}
+
+{% block body %}
+    <h1>{{ 'firm.create'|trans }}</h1>
+
+    {% include'components/organismes/firm/_form.html.twig' with {'form': form} only %}
+{% endblock %}

@@ -145,7 +145,7 @@ tu() {
 }
 
 tu_coverage() {
-    cmd "vendor/bin/simple-phpunit --coverage-html=coverage/unit --coverage-xml=coverage/unit/coverage-xml --log-junit=coverage/unit/phpunit.junit.xml"
+    cmd "vendor/bin/simple-phpunit --coverage-html=coverage/unit --coverage-xml=coverage/unit/coverage-xml --log-junit=coverage/unit/junit.xml"
     cmd "vendor/bin/infection --threads=4 --coverage=coverage/unit --only-covered"
 }
 

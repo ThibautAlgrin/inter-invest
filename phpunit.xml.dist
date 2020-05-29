@@ -28,16 +28,11 @@
                 <directory>src/Admin</directory>
                 <directory>src/DataFixtures</directory>
                 <directory>src/Entity</directory>
+                <directory>src/Form</directory>
                 <directory>src/Migrations</directory>
                 <directory>src/Model</directory>
                 <directory>src/Repository</directory>
                 <file>src/Kernel.php</file>
-                <file>src/Form/Type/CategoryType.php</file>
-                <file>src/Form/Type/LocalisationType.php</file>
-                <file>src/Form/EventForm.php</file>
-                <file>src/Form/ProfileForm.php</file>
-                <file>src/Form/RegisterForm.php</file>
-                <file>src/Form/SearchForm.php</file>
             </exclude>
         </whitelist>
     </filter>

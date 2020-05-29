@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Repository\FirmRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Class Firm.
+ *
+ * @Gedmo\Loggable
  *
  * @ORM\Entity(repositoryClass=FirmRepository::class)
  */
@@ -29,14 +29,19 @@ class Firm
     private $id;
 
     /**
-     * @var Address[]
+     * @var LegalForm
      *
-     * @ORM\OneToMany(targetEntity=Address::class, mappedBy="firm", orphanRemoval=true)
+     * @Gedmo\Versioned
+     *
+     * @ORM\ManyToOne(targetEntity=LegalForm::class, inversedBy="firm")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $address;
+    private $legalForm;
 
     /**
      * @var string
+     *
+     * @Gedmo\Versioned
      *
      * @ORM\Column(type="string", length=255)
      */
@@ -54,12 +59,16 @@ class Firm
     /**
      * @var string
      *
+     * @Gedmo\Versioned
+     *
      * @ORM\Column(type="string", length=255)
      */
     private $siren;
 
     /**
      * @var string
+     *
+     * @Gedmo\Versioned
      *
      * @ORM\Column(type="string", length=255)
      */
@@ -68,6 +77,8 @@ class Firm
     /**
      * @var \DateTime
      *
+     * @Gedmo\Versioned
+     *
      * @ORM\Column(type="date")
      */
     private $dateRegister;
@@ -75,18 +86,41 @@ class Firm
     /**
      * @var float
      *
+     * @Gedmo\Versioned
+     *
      * @ORM\Column(type="decimal", precision=10, scale=0)
      */
     private $capital;
 
+    /**
+     * @var array
+     *
+     * @Gedmo\Versioned
+     *
+     * @ORM\Column(type="json")
+     */
+    private $address;
+
     public function __construct()
     {
-        $this->address = new ArrayCollection();
+        $this->address = [];
     }
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getLegalForm(): ?LegalForm
+    {
+        return $this->legalForm;
+    }
+
+    public function setLegalForm(?LegalForm $legalForm): self
+    {
+        $this->legalForm = $legalForm;
+
+        return $this;
     }
 
     public function getName(): ?string
@@ -161,33 +195,17 @@ class Firm
         return $this;
     }
 
-    /**
-     * @return Collection|Address[]
-     */
-    public function getAddress(): Collection
+    public function getAddress(): array
     {
         return $this->address;
     }
 
-    public function addAddress(Address $address): self
+    /**
+     * @return Firm
+     */
+    public function setAddress(array $address): self
     {
-        if (!$this->address->contains($address)) {
-            $this->address[] = $address;
-            $address->setFirm($this);
-        }
-
-        return $this;
-    }
-
-    public function removeAddress(Address $address): self
-    {
-        if ($this->address->contains($address)) {
-            $this->address->removeElement($address);
-            // set the owning side to null (unless already changed)
-            if ($address->getFirm() === $this) {
-                $address->setFirm(null);
-            }
-        }
+        $this->address = $address;
 
         return $this;
     }
