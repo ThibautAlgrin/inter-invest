@@ -1,4 +1,4 @@
-EXEC=./scripts/natif/exec.sh
+EXEC=./scripts/docker/exec.sh
 
 .DEFAULT_GOAL := help
 .PHONY: help
@@ -11,7 +11,7 @@ help:
 ##---------------------------------------------------------------------------
 
 init: ## Init project
-init: images-build hosts-add env up install
+init: images-build hosts-add env up install asset
 	$(EXEC) info
 
 clear: ## Init project
@@ -107,6 +107,19 @@ tu-coverage: ## Run the units tests coverage
 
 tf-coverage: ## Run the units tests coverage
 	$(EXEC) tf_coverage
+
+##---------------------------------------------------------------------------
+## Assets
+##---------------------------------------------------------------------------
+
+asset: ## Install assets (npm install, routing.js, yarn run dev)
+	$(EXEC) assets
+
+yarn: ## Run yarn
+	$(EXEC) yarn
+
+yarn-watch: ## Run yarn watch
+	$(EXEC) yarn_watch
 
 ##---------------------------------------------------------------------------
 ## Audit

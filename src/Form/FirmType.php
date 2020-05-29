@@ -25,7 +25,6 @@ class FirmType extends AbstractType
                 'legalForm',
                 EntityType::class,
                 [
-                    'required' => true,
                     'class' => LegalForm::class,
                     'label' => 'firm.form.legal-form',
                     'placeholder' => 'firm.form.legal-form.placeholder',

@@ -28,6 +28,7 @@
                 <directory>src/Admin</directory>
                 <directory>src/DataFixtures</directory>
                 <directory>src/Entity</directory>
+                <directory>src/Form</directory>
                 <directory>src/Migrations</directory>
                 <directory>src/Model</directory>
                 <directory>src/Repository</directory>

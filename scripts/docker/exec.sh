@@ -1,7 +1,6 @@
 #!/bin/bash
 
 ACTION=$1
-APP_DIR=$PWD
 
 STACK_NAME=inter-invest
 SERVICE_NAME=$STACK_NAME"_php-fpm.1"
@@ -37,7 +36,7 @@ up() {
         docker-sync start
     fi
 
-    env $(cat $APP_DIR/.docker | grep "^[A-Z]" | xargs) docker stack deploy -c $APP_DIR/docker-compose.yaml $STACK_NAME
+    env $(cat $PWD/.docker | grep "^[A-Z]" | xargs) docker stack deploy -c $PWD/docker-compose.yaml $STACK_NAME
 
     while [ -z $CONTAINER_ID ]
     do
@@ -73,7 +72,7 @@ info() {
     echo -e "\033[37m    - Elasticsearch: \033[34m http://localhost:9200\033[37m"
     echo -e "\033[37m    - Kibana:        \033[34m http://localhost:5601\033[37m"
     echo -e "\033[37m    - Thumbor:       \033[34m http://localhost:8888\n\033[37m"
-    echo -e "\033[37m    - Monolitic:     \033[34m https://${hosts[0]}:8083\033[37m"
+    echo -e "\033[37m    - Monolitic:     \033[34m http://${hosts[0]}:8080\033[37m"
 
     echo -e "\n\033[33m To go inside the container, run: \033[37m\033[45m make exec \033[37m\033[49m 🐳"
 }
@@ -94,7 +93,7 @@ envs() {
         sed -i "" 's/DATABASE_URL=mysql:\/\/root:root@127.0.0.1:3306/DATABASE_URL=mysql:\/\/root:@database:3306/g' .env
 
         sed -i "" 's/ENV_DATA_DATABASE_PATH/.\/.data\/database/g' .docker
-        sed -i "" 's/VOLUME_API_V2/unison-sync-inter-invest/g' .docker
+        sed -i "" 's/VOLUME_API_V2/unison-sync-inter/g' .docker
         sed -i "" 's/_UNISON_STRATEGY/:nocopy/g' .docker
     else
         sed -i 's/http:\/\/test.inter-invest.localhost\//http:\/\/test.inter-invest.localhost:8082/g' behat.yml
@@ -108,7 +107,7 @@ envs() {
 }
 
 envs-remove() {
-    rm -rf .docker behat.yml .docker-sync .data
+    rm -rf .docker behat.yml .docker-sync .data node_modules .docker-sync
     if [ "$(uname -a | grep Darwin)" ]; then
         sed -i "" 's/DATABASE_URL=mysql:\/\/root:@database:3306/DATABASE_URL=mysql:\/\/root:root@127.0.0.1:3306/g' .env
     else
@@ -117,6 +116,8 @@ envs-remove() {
     docker container stop $(docker container ls --filter name="ssh-agent" -q)
     docker container rm $(docker container ls -aq)
     docker volume rm $(docker volume ls -q)
+    docker network rm database
+    docker network rm application
 }
 
 certs-create() {
@@ -190,6 +191,7 @@ volumes-create() {
 
 install() {
     cmd 'composer install'
+    cmd "$CONSOLE d:d:c --if-not-exists && $CONSOLE d:d:c --env=test --if-not-exists"
 }
 
 update() {
@@ -242,6 +244,23 @@ tf() {
 tf_coverage() {
     fixtures
     cmd "phpdbg -d memory_limit=-1 -qrr vendor/bin/behat --format progress"
+}
+
+#############
+# Assets
+#############
+
+assets() {
+    cmd 'yarn install'
+    yarn
+}
+
+yarn() {
+    cmd 'yarn run dev'
+}
+
+yarn_watch() {
+    cmd 'yarn run watch'
 }
 
 #############

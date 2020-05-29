@@ -36,7 +36,6 @@ services:
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
     volumes:
       - database:/var/lib/mysql
-      - ./exports:/home/exports
     ports:
       - "3307:3306"
     networks:
